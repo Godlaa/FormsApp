@@ -68,6 +68,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomSerialize.cs" />
     <Compile Include="Point3D.cs" />
     <Compile Include="PointForm.cs">
       <SubType>Form</SubType>

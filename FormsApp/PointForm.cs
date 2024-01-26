@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using PointLab;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization.Formatters.Soap;
@@ -41,7 +42,7 @@ namespace FormsApp
         private void btnSerialize_Click(object sender, EventArgs e)
         {
             var dlg = new SaveFileDialog();
-            dlg.Filter = "SOAP|*.soap|XML|*.xml|JSON|*.json|Binary|*.bin|YAML|*.yaml";
+            dlg.Filter = "SOAP|*.soap|XML|*.xml|JSON|*.json|Binary|*.bin|YAML|*.yaml|Custom|*.cstm";
 
             if (dlg.ShowDialog() != DialogResult.OK)
                 return;
@@ -75,6 +76,10 @@ namespace FormsApp
                         {
                             writer.Write(yaml);
                         }
+                        break;
+                    case ".cstm":
+                        var cf = new CustomSerialize();
+                        cf.Serialize(fs, points);
                         break;
                 }
             }
