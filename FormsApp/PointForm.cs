@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using PointLab;
+using PointsLib;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -66,6 +66,7 @@ namespace FormsApp
                         break;
                     case ".json":
                         var jf = new JsonSerializer();
+                        jf.TypeNameHandling = TypeNameHandling.Objects;
                         using (var w = new StreamWriter(fs))
                             jf.Serialize(w, points);
                         break;
@@ -88,7 +89,7 @@ namespace FormsApp
         private void btnDeserialize_Click(object sender, EventArgs e)
         {
             var dlg = new OpenFileDialog();
-            dlg.Filter = "SOAP|*.soap|XML|*.xml|JSON|*.json|Binary|*.bin";
+            dlg.Filter = "SOAP|*.soap|XML|*.xml|JSON|*.json|Binary|*.bin|Custom|*.cstm";
 
             if (dlg.ShowDialog() != DialogResult.OK)
                 return;
@@ -112,8 +113,13 @@ namespace FormsApp
                         break;
                     case ".json":
                         var jf = new JsonSerializer();
+                        jf.TypeNameHandling = TypeNameHandling.Objects;
                         using (var r = new StreamReader(fs))
                             points = (Point[])jf.Deserialize(r, typeof(Point[]));
+                        break;
+                    case ".cstm":
+                        var cf = new CustomSerialize();
+                        points = (Point[])cf.Deserialize(fs);
                         break;
                 }
             }

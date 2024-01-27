@@ -1,4 +1,4 @@
-﻿using PointLab;
+﻿using PointsLib;
 using System;
 
 namespace FormsApp
